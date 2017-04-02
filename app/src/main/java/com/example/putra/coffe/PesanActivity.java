@@ -46,18 +46,11 @@ public class PesanActivity extends AppCompatActivity {
 
         ListView list =(ListView) findViewById(R.id.list1);
         String url = "http://192.168.137.77/coffe/php/api-item.php";
-        MyService ms = new MyService();
 
-        response=ms.res();
 
         Intent intent = getIntent();
         response = intent.getStringExtra("json");
-        /*if(response.equals("kosong"))
-        {
 
-            response=get.getSem();
-        }
-        Log.d("resss",response);*/
 
         Intent ser = new Intent(PesanActivity.this, MyService.class);
         ser.putExtra("json",response);
