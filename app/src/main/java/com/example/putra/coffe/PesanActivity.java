@@ -52,9 +52,9 @@ public class PesanActivity extends AppCompatActivity {
         response = intent.getStringExtra("json");
 
 
-        Intent ser = new Intent(PesanActivity.this, MyService.class);
+        /*Intent ser = new Intent(PesanActivity.this, MyService.class);
         ser.putExtra("json",response);
-        PesanActivity.this.startService(ser);
+        PesanActivity.this.startService(ser);*/
 
 
 
@@ -105,6 +105,7 @@ public class PesanActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(PesanActivity.this,PesananActivity.class);
+            i.putExtra("json",response);
             PesanActivity.this.startActivity(i);
             return true;
         }

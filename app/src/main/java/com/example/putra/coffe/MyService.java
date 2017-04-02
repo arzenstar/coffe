@@ -56,7 +56,8 @@ public class MyService extends Service {
         Toast.makeText(this,"Starting "+response, Toast.LENGTH_SHORT).show();
         backgroundThread bg = new backgroundThread();
         bg.Stat(Boolean.TRUE);
-        bg.execute(response);
+        //bg.execute(response);
+        bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,response);
 
         return super.onStartCommand(intent, flags, startId);
     }

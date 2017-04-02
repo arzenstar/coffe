@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("json",isijason.getText().toString());
                 MainActivity.this.startActivity(i);
 
-               /* Intent ser = new Intent(MainActivity.this, MyService.class);
+                Intent ser = new Intent(MainActivity.this, MyService.class);
                 ser.putExtra("json",isijason.getText().toString());
-                MainActivity.this.startService(ser);*/
+                MainActivity.this.startService(ser);
 
             }
         });

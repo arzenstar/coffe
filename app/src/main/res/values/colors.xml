@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="biru">#FF0099CC</color>
+    <color name="kuning">#FFFFBB33</color>
+    <color name="merah">#FFCC0000</color>
 </resources>

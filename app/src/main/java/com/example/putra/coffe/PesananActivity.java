@@ -39,12 +39,12 @@ public class PesananActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         response = intent.getStringExtra("json");
-        String url = "http://192.168.137.77/coffe/php/api-pesanan2.php";
+        String url = "http://192.168.137.77/coffe/php/api-pesanan2.php?id="+response;
 
         ListView list =(ListView) findViewById(R.id.list2);
 
-        DPT get = new DPT();
-        get.execute(url,response);
+        DPT dpt = new DPT();
+        dpt.execute(url,response);
 
     }
 
@@ -90,7 +90,7 @@ public class PesananActivity extends AppCompatActivity {
         String []status;
         myAdapter2(Context c, String []nama, String []harga, String[] inmage, String []id,String []status )
         {
-            super(c,R.layout.activity_pesan,R.id.nama,nama);
+            super(c,R.layout.activity_pesanan,R.id.name,nama);
             this.context = c;
             this.id=id;
             this.name=nama;
@@ -103,14 +103,31 @@ public class PesananActivity extends AppCompatActivity {
         public View getView(final int potition, View convertview, ViewGroup parent)
         {
             if (convertview == null) {
-                convertview = LayoutInflater.from(getContext()).inflate(R.layout.activity_pesan, parent, false);
+                convertview = LayoutInflater.from(getContext()).inflate(R.layout.activity_pesanan, parent, false);
             }
             ImageView img =(ImageView) convertview.findViewById(R.id.image);
             TextView nama = (TextView) convertview.findViewById(R.id.name);
             TextView harga = (TextView) convertview.findViewById(R.id.price);
             TextView labelnama = (TextView) convertview.findViewById(R.id.Labelname);
             TextView labelharga = (TextView) convertview.findViewById(R.id.Labelprice);
-            TextView status = (TextView) convertview.findViewById(R.id.status);
+            TextView status = (TextView) convertview.findViewById(R.id.status1);
+           /* String stat = this.status[potition];
+            switch (stat){
+                case "antrian": TextView status = (TextView) convertview.findViewById(R.id.status1);
+                    break;
+                case "proses": TextView status = (TextView) convertview.findViewById(R.id.status2);
+                    break;
+                case "dibatalkan":
+                    break;
+                default:
+                    break;
+            }
+            */
+
+
+
+
+
 
 
 
@@ -126,7 +143,20 @@ public class PesananActivity extends AppCompatActivity {
             Picasso.with(PesananActivity.this).load(file[potition]).into(img);
             nama.setText(name[potition]);
             harga.setText(hrg[potition]);
-            status.setText(id[potition]);
+            status.setText(this.status[potition]);
+            String stat = this.status[potition];
+            switch (stat){
+                case "antrian": status.setBackgroundResource(R.color.biru);
+                    break;
+                case "proses": status.setBackgroundResource(R.color.kuning);
+                    break;
+                case "dibatalkan": status.setBackgroundResource(R.color.merah);
+                    break;
+                default:
+                    break;
+            }
+
+
 
 
 
@@ -144,19 +174,18 @@ public class PesananActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            list =(ListView) findViewById(R.id.list1);
+            list =(ListView) findViewById(R.id.list2);
+
             /*Intent intent = getIntent();
             sem = intent.getStringExtra("json");*/
         }
 
-        public String getSem()
-        {
-            return  this.sem;
-        }
+
         @Override
         protected String doInBackground(String... params) {
             sem=params[1];
             URL obj = null;
+            Log.d("backgroud2", sem);
             StringBuilder sb =null;
 
             try {
@@ -178,7 +207,7 @@ public class PesananActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.d("sb", sb.toString());
+            Log.d("backgroud2", sb.toString());
 
             return sb.toString();
         }
@@ -186,7 +215,7 @@ public class PesananActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("String", s);
+
             String url2="http://192.168.137.77/coffe/";
             JSONObject json = null;
 
@@ -218,13 +247,13 @@ public class PesananActivity extends AppCompatActivity {
                     //st.append(id+" "+nama+"\n");
                     panjang++;
                 }
-                Log.d("resss",response);
+                Log.d("getJson2",response);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            myAdapter2 adapter = new myAdapter2(PesananActivity.this,name,hrg,file,id,status);
-            list.setAdapter(adapter);
+            myAdapter2 adapter2 = new myAdapter2(PesananActivity.this,name,hrg,file,id,status);
+            list.setAdapter(adapter2);
         }
 
 
